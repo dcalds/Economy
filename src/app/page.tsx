@@ -1,91 +1,61 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+'use client'
+import { Navbar, Card, CashIn, CashOut, Overview } from "@/components";
 
-const inter = Inter({ subsets: ['latin'] })
+import { Banknote, Calendar } from 'lucide-react';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <section className="">
+      <Navbar user={"computacaodanilo@gmail.com"} logOut={() => { }} />
+
+      <div className='container mx-auto py-12'>
+
+        <div className="w-full sm:flex-wrap flex justify-between items-center pb-6">
+          <div className="flex justify-center items-center gap-4">
+            <Banknote color="#333" size={16} />
+            <h4 className="font-bold text-lg">Gerenciamento de Economias</h4>
+          </div>
+
+          <button className="justify-center items-center gap-4 md:flex hidden">
+            <h4 className="font-bold text-md">24 / 02 / 2023</h4>
+            <Calendar color="#333" size={16} />
+          </button>
         </div>
-      </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
+        <div className="w-full flex flex-wrap justify-between items-start pb-12 gap-8">
+
+          <Card label={'Economia Mensal'} value={'R$ 5.000,00'} color={'bg-[#FFE247]'} />
+          <Card label={'Economizado'} value={'R$ 25.000,00'} color={'bg-[#5DE950]'} />
+          <Card label={'Meta'} value={'R$ 70.000,00'} color={'bg-[#5A75FF]'} />
+          <Card label={'Alcance da Meta'} value={'32%'} color={'bg-[#BC67FF]'} />
+
         </div>
+
+        <div className="w-full flex flex-wrap  justify-between items-start">
+
+          <Overview date={""} economies={""} expenses={""} />
+          <CashIn values={cashValues} />
+          <CashOut values={cashValues} />
+
+        </div>
+
       </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </section>
   )
 }
+
+const cashValues = [
+  {
+    amount: 250,
+    description: 'Conta de Luz',
+  },
+  {
+    amount: 225,
+    description: 'Conta de Internet',
+  },
+  {
+    amount: 1300,
+    description: 'Aluguel',
+  },
+]

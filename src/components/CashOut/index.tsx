@@ -14,7 +14,7 @@ export const CashOut = ({ values, subCash }: CashOutProps) => {
                     return (
                         <div key={index} className='flex items-center gap-4 bg-white'>
                             <div className='h-16 max-h- w-1 bg-[#FF4747]' />
-                            <p className='font-bold text-xl'>R$ {element.amount}</p>
+                            <p className='font-bold text-lg'>R$ {element.amount}</p>
                             <p>{element.description}</p>
                         </div>
                     )

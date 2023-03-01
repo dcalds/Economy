@@ -1,20 +1,20 @@
 'use client'
+import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { Banknote, Calendar } from 'lucide-react';
 
 import { Navbar, Card, CashIn, CashOut, Overview } from "@/components";
 
-import { signOut } from 'next-auth/react';
-
 export default function Home() {
+  const { data: session } = useSession()
 
   const logout = async () => {
-    signOut();
+    signOut({ callbackUrl: '/signin' });
   };
 
   return (
     <section className="">
-      <Navbar user={"computacaodanilo@gmail.com"} logOut={logout} />
-
+      <Navbar data={session?.user} logOut={logout} />
       <div className='container mx-auto py-12'>
 
         <div className="w-full sm:flex-wrap flex justify-between items-center pb-6">

@@ -1,18 +1,37 @@
-'use client'
-
 import React from 'react';
-import { type Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react'
+
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 type Props = {
     children: React.ReactNode,
-    session: Session | null
 };
 
-export const AuthProvider = ({ children, session }: Props) => {
+export const AuthProvider = ({ children }: Props) => {
     return (
-        <SessionProvider session={session}>
-            <>{children}</>
+        <SessionProvider>
+            <Session>
+                {children}
+            </Session>
         </SessionProvider>
+    );
+}
+
+export const Session = ({ children }: Props) => {
+    const { status } = useSession()
+
+    if (status === 'unauthenticated') {
+        redirect('/signin');
+    }
+
+    if (status === 'loading') {
+        return <></>;
+    }
+
+    return (
+        <div>
+            {children}
+        </div>
     );
 }

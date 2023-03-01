@@ -1,5 +1,9 @@
 export type NavbarProps = {
-    user: string;
+    data?: {
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+    };
     logOut: () => void;
 }
 
@@ -10,8 +14,8 @@ export type CardProps = {
 }
 
 export type Cash = {
-    amount: number;   
-    description: string;    
+    amount: number;
+    description: string;
 }
 
 export type CashInProps = {

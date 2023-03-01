@@ -1,21 +1,17 @@
-import Image from 'next/image'
 import { LogOut } from 'lucide-react';
 import { NavbarProps } from '@/utils';
 
-export const Navbar = ({ user, logOut }: NavbarProps) => {
+export const Navbar = ({ data, logOut }: NavbarProps) => {
     return (
         <nav className="h-20 flex justify-between items-center shadow-lg">
 
             <div className='container mx-auto flex justify-between items-center'>
-                <div className='flex gap-2 justify-center items-center'>
-                    <Image
-                        src="/user.png"
-                        alt="User"
-                        width={32}
-                        height={32}
-                        priority
-                    />
-                    <p className='font-semibold sm:block hidden'>{user}</p>
+                <div className='flex gap-3 justify-center items-center'>
+                    <div className="h-8 w-8 rounded-3xl bg-cover bg-center" style={{ backgroundImage: `url(${data?.image})` }}></div>
+                    <div>
+                        <p className='font-semibold text-sm sm:block hidden'>{data?.name}</p>
+                        <p className='font-normal text-slate-500 text-xs sm:block hidden'>{data?.email}</p>
+                    </div>
                 </div>
 
                 <button onClick={logOut} className='flex gap-2 justify-center items-center'>

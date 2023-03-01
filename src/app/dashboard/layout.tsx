@@ -1,9 +1,6 @@
+'use client'
 import { Inter } from 'next/font/google'
-import { redirect } from 'next/navigation';
 import { AuthProvider } from '@/components';
-
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,24 +9,19 @@ export const metadata = {
   description: 'Economy | Here you can take control of your financial life!',
 }
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
 
-  const userSession = await getServerSession(authOptions);
-  console.log('SESSION', userSession);
-
-  if (!userSession) {
-    redirect('/signin');
-  }
-
   return (
     <html lang="en">
+    <AuthProvider>
       <body className={inter.className}>
         <>{children}</>
       </body>
+    </AuthProvider>
     </html>
   )
 }

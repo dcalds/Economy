@@ -4,6 +4,7 @@ export type NavbarProps = {
         email?: string | null | undefined;
         image?: string | null | undefined;
     };
+    openSettings?: () => void;
     logOut: () => void;
 }
 
@@ -13,18 +14,18 @@ export type CardProps = {
     color: string;
 }
 
-export type Cash = {
+export type CashProps = {
     amount: number;
     description: string;
 }
 
 export type CashInProps = {
-    values: Cash[];
+    values: CashProps[];
     addCash?: () => {};
 }
 
 export type CashOutProps = {
-    values: Cash[];
+    values: CashProps[];
     subCash?: () => {};
 }
 

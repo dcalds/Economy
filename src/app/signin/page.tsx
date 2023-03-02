@@ -7,30 +7,11 @@ import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
 import { LogIn } from 'lucide-react';
-import { auth, googleProvider } from "../../config/firebase";
-
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-} from "firebase/auth";
 
 import { useState } from "react";
 
 export default function SignIn() {
   const router = useRouter();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const signInWithEmail = async () => {
-    try {
-      const data = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(data);
-      router.push('/dashboard');
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const signInWithGoogle = async () => {
     try {
@@ -79,26 +60,25 @@ export default function SignIn() {
           <div>
             <label htmlFor="email">Email</label>
             <input
-              className="border border-slate-300 py-3 px-4 w-full my-2"
+              disabled
+              className="border border-slate-300 py-3 px-4 w-full my-2 cursor-not-allowed"
               placeholder="Digite seu email"
-              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div>
             <label htmlFor="password">Senha</label>
             <input
-              className="border border-slate-300 py-3 px-4 w-full my-2"
+              disabled
+              className="border border-slate-300 py-3 px-4 w-full my-2 cursor-not-allowed"
               placeholder="Digite sua senha"
               type="password"
-              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
           <button
-            disabled={true}
-            onClick={signInWithEmail}
-            className="text-white font-semibold bg-[#5A75FF] hover:bg-[#415CE9] transition-all py-3 px-6 mt-4 w-full flex justify-center items-center gap-2">
+            disabled
+            className="text-white font-semibold bg-[#5A75FF] py-3 px-6 mt-4 w-full flex justify-center items-center gap-2 cursor-not-allowed">
             <span>Entrar</span>
             <LogIn color="white" size={16} />
           </button>

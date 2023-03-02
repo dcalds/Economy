@@ -24,7 +24,7 @@ export const Overview = ({ date, economies, expenses }: OverviewProps) => {
 
                         <div>
                             <p>Economia Total</p>
-                            <p className='font-bold xl:text-2xl text-lg'>R$ 2.000,00</p>
+                            <p className='font-bold xl:text-2xl text-lg'>R$ 0</p>
                         </div>
                     </div>
 
@@ -33,7 +33,7 @@ export const Overview = ({ date, economies, expenses }: OverviewProps) => {
 
                         <div>
                             <p>Gasto Total</p>
-                            <p className='font-bold xl:text-2xl text-lg'>R$ 2.000,00</p>
+                            <p className='font-bold xl:text-2xl text-lg'>R$ 0</p>
                         </div>
                     </div>
 

@@ -1,4 +1,5 @@
 import './globals.css'
+import 'react-responsive-modal/styles.css';
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -7,7 +8,6 @@ export const metadata = {
   title: 'Economy',
   description: '',
 }
-
 
 export default function RootLayout({
   children,

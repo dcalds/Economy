@@ -1,7 +1,7 @@
-import { LogOut } from 'lucide-react';
+import { LogOut, Settings, Bell } from 'lucide-react';
 import { NavbarProps } from '@/utils';
 
-export const Navbar = ({ data, logOut }: NavbarProps) => {
+export const Navbar = ({ data, openSettings, logOut }: NavbarProps) => {
     return (
         <nav className="h-20 flex justify-between items-center shadow-lg">
 
@@ -14,10 +14,20 @@ export const Navbar = ({ data, logOut }: NavbarProps) => {
                     </div>
                 </div>
 
-                <button onClick={logOut} className='flex gap-2 justify-center items-center'>
-                    <LogOut color='#FF4747' size={16} />
-                    <p className='text-[#FF4747] font-semibold'>Sair</p>
-                </button>
+                <div className='flex justify-between items-center gap-8'>
+                    <button onClick={openSettings} className='flex gap-2 justify-center items-center'>
+                        <Settings color='#333' size={20} />
+                    </button>
+
+                    <button onClick={() => {}} className='flex gap-2 justify-center items-center pr-8'>
+                        <Bell color='#333' size={20} />
+                    </button>
+
+                    <button onClick={logOut} className='flex gap-2 justify-center items-center'>
+                        <LogOut color='#FF4747' size={16} />
+                        <p className='text-[#FF4747] font-semibold'>Sair</p>
+                    </button>
+                </div>
             </div>
 
         </nav>

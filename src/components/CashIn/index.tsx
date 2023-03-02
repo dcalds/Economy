@@ -10,7 +10,7 @@ export const CashIn = ({ values, addCash }: CashInProps) => {
             </div>
 
             {
-                values.map((element, index) => {
+                values?.map((element, index) => {
                     return (
                         <div key={index} className='flex items-center gap-4 bg-white'>
                             <div className='h-16 max-h- w-1 bg-[#5DE950]' />

@@ -1,8 +1,7 @@
 import React from 'react';
-import { SessionProvider } from 'next-auth/react'
-
-import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import { SessionProvider } from 'next-auth/react'
+import { useSession } from 'next-auth/react';
 
 type Props = {
     children: React.ReactNode,
@@ -26,12 +25,12 @@ export const Session = ({ children }: Props) => {
     }
 
     if (status === 'loading') {
-        return <></>;
+        return (<></>);
     }
 
     return (
-        <div>
+        <>
             {children}
-        </div>
+        </>
     );
 }

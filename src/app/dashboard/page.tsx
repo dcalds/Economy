@@ -14,6 +14,7 @@ import { Navbar, Card, CashIn, CashOut, Overview } from "@/components";
 import { InputUserFinancesProps } from '@/utils';
 
 import { useFinances } from '@/hooks/useFinances';
+import { calcPercentage } from '@/utils/functions';
 
 export default function Home() {
 
@@ -134,14 +135,16 @@ export default function Home() {
           <Card label={'Economia Mensal'} value={isLoading ? '-' : (`R$ ${userData[0]?.montlyEco || '0'}`)} color={'bg-[#FFE247]'} />
           <Card label={'Economizado'} value={isLoading ? '-' : (`R$ ${userData[0]?.economyEco || '0'}`)} color={'bg-[#5DE950]'} />
           <Card label={'Meta'} value={isLoading ? '-' : (`R$ ${userData[0]?.goalEco || '0'}`)} color={'bg-[#5A75FF]'} />
-          <Card label={'Alcance da Meta'} value={'0%'} color={'bg-[#BC67FF]'} />
+          <Card label={'Alcance da Meta'} value={isLoading ? '-' : calcPercentage(userData[0]?.economyEco, userData[0]?.goalEco) + '%'} color={'bg-[#BC67FF]'} />
         </div>
 
-        <div className="w-full flex flex-wrap  justify-between items-start">
-          <Overview date={moment().format('L')} economies={isLoading ? 0 : sumCashIn} expenses={isLoading ? 0 : sumCashOut} />
-          <CashIn values={isLoading ? [] : userData[0]?.cashIn} setCashIn={setCashIn} updateCashIn={updateCashIn} deleteCashIn={deleteCashIn} />
-          <CashOut values={isLoading ? [] : userData[0]?.cashOut} setCashOut={setCashOut} updateCashOut={updateCashOut} deleteCashOut={deleteCashOut} />
-        </div>
+        {userData[0]?.montlyEco && (
+          <div className="w-full flex flex-wrap  justify-between items-start">
+            <Overview date={moment().format('L')} economies={isLoading ? 0 : sumCashIn} expenses={isLoading ? 0 : sumCashOut} />
+            <CashIn values={isLoading ? [] : userData[0]?.cashIn} setCashIn={setCashIn} updateCashIn={updateCashIn} deleteCashIn={deleteCashIn} />
+            <CashOut values={isLoading ? [] : userData[0]?.cashOut} setCashOut={setCashOut} updateCashOut={updateCashOut} deleteCashOut={deleteCashOut} />
+          </div>
+        )}
 
       </div>
 

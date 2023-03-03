@@ -10,8 +10,8 @@ export type NavbarProps = {
 
 export type CardProps = {
     label: string;
-    value: string;
     color: string;
+    value: string | number;
 }
 
 export type CashProps = {

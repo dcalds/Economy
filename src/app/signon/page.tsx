@@ -51,7 +51,7 @@ export default function SignOn() {
           <button
             disabled
             className="text-white font-semibold bg-[#58C756] py-3 px-6 mt-4 w-full flex justify-center items-center gap-2 cursor-not-allowed">
-            <span>Entrar</span>
+            <span>Cadastrar</span>
             <CheckCircle color="white" size={16} />
           </button>
 

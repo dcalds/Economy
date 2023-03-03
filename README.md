@@ -1,4 +1,4 @@
-# My Economy App
+# My Economy App | v1.0
 
 This app will be developed for economy propourses!
 

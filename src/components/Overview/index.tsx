@@ -12,7 +12,6 @@ export const Overview = ({ date, economies = '0', expenses = '0' }: OverviewProp
 
                 <div className='flex flex-col gap-4'>
 
-                    <h4 className='font-bold text-lg'> Dados de Fevereiro </h4>
 
                     <button className="flex justify-center items-center gap-4 bg-[#F1F5F8] px-6 py-2">
                         <h4 className="font-bold text-md text-[#666]">{date}</h4>
@@ -23,7 +22,7 @@ export const Overview = ({ date, economies = '0', expenses = '0' }: OverviewProp
                         <div className='h-12 max-h- w-1 bg-[#5DE950]' />
 
                         <div>
-                            <p>Economia Total</p>
+                            <p>Entradas</p>
                             <p className='font-bold xl:text-2xl text-lg'>R$ {economies}</p>
                         </div>
                     </div>
@@ -32,8 +31,17 @@ export const Overview = ({ date, economies = '0', expenses = '0' }: OverviewProp
                         <div className='h-12 max-h- w-1 bg-[#FF4747]' />
 
                         <div>
-                            <p>Gasto Total</p>
+                            <p>Saidas</p>
                             <p className='font-bold xl:text-2xl text-lg'>R$ {expenses}</p>
+                        </div>
+                    </div>
+
+                    <div className='flex items-center gap-4 bg-white'>
+                        <div className='h-12 max-h- w-1 bg-[#FFE247]' />
+
+                        <div>
+                            <p>Restante</p>
+                            <p className='font-bold xl:text-2xl text-lg'>R$ {Number(economies) - Number(expenses)}</p>
                         </div>
                     </div>
 

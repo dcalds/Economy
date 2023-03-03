@@ -16,8 +16,28 @@ import { InputUserFinancesProps } from '@/utils';
 import { useFinances } from '@/hooks/useFinances';
 
 export default function Home() {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<InputUserFinancesProps>();
-  const { isLoading, userData, sumCashIn, sumCashOut, setUserFinances, session, } = useFinances();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors }
+  } = useForm<InputUserFinancesProps>();
+
+  const {
+    isLoading,
+    userData,
+    sumCashIn,
+    sumCashOut,
+    setUserFinances,
+    session,
+    setCashIn,
+    updateCashIn,
+    deleteCashIn,
+    setCashOut,
+    updateCashOut,
+    deleteCashOut,
+  } = useFinances();
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -101,7 +121,7 @@ export default function Home() {
         <div className="w-full sm:flex-wrap flex justify-between items-center pb-6">
           <div className="flex justify-center items-center gap-4">
             <Banknote color="#333" size={16} />
-            <h4 className="font-bold text-lg">Economias</h4>
+            <h4 className="font-bold text-lg">Gerenciamento de Economias</h4>
           </div>
 
           <button className="justify-center items-center gap-4 md:flex hidden">
@@ -119,8 +139,8 @@ export default function Home() {
 
         <div className="w-full flex flex-wrap  justify-between items-start">
           <Overview date={moment().format('L')} economies={isLoading ? 0 : sumCashIn} expenses={isLoading ? 0 : sumCashOut} />
-          <CashIn values={isLoading ? [] : userData[0]?.cashIn} />
-          <CashOut values={isLoading ? [] : userData[0]?.cashOut} />
+          <CashIn values={isLoading ? [] : userData[0]?.cashIn} setCashIn={setCashIn} updateCashIn={updateCashIn} deleteCashIn={deleteCashIn} />
+          <CashOut values={isLoading ? [] : userData[0]?.cashOut} setCashOut={setCashOut} updateCashOut={updateCashOut} deleteCashOut={deleteCashOut} />
         </div>
 
       </div>

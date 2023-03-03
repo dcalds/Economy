@@ -15,16 +15,22 @@ export type CardProps = {
 }
 
 export type CashProps = {
-    amount: number;
+    amount: string;
     description: string;
 }
 
 export type CashInProps = {
     values: CashProps[];
+    setCashIn: (data: InputUserFinancesProps) => void;
+    updateCashIn: (data: InputUserFinancesProps, indexEdit: number) => void;
+    deleteCashIn: (indexEdit: number) => void;
 }
 
 export type CashOutProps = {
     values: CashProps[];
+    setCashOut: (data: InputUserFinancesProps) => void;
+    updateCashOut: (data: InputUserFinancesProps, indexEdit: number) => void;
+    deleteCashOut: (indexEdit: number) => void;
 }
 
 export type OverviewProps = {

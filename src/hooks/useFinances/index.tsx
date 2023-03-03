@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { InputUserFinancesProps } from "@/utils";
+import { CashProps, InputUserFinancesProps } from "@/utils";
 import { db, auth, storage } from "@/config/firebase";
 import {
     getDocs,
@@ -23,8 +23,8 @@ export const useFinances = () => {
     const userEmail = session?.user?.email;
 
     useEffect(() => {
-      getUserFinances();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        getUserFinances();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getUserFinances = async () => {
@@ -33,6 +33,7 @@ export const useFinances = () => {
 
         try {
             setIsLoading(true);
+            console.log('setIsLoading', isLoading);
 
             const data = await getDocs<any>(financesCollectionRef);
 
@@ -94,7 +95,6 @@ export const useFinances = () => {
 
         try {
             setIsLoading(true);
-
             const financesDoc = doc(db, `${userEmail}-fin`, userData[0]?.id);
             await updateDoc(financesDoc, {
                 cashIn: [...userData[0].cashIn, {
@@ -107,6 +107,46 @@ export const useFinances = () => {
         } finally {
             getUserFinances();
             setIsLoading(false);
+        }
+    }
+
+    const updateCashIn = async (data: InputUserFinancesProps, indexEdit: number) => {
+
+        try {
+            setIsLoading(true);
+
+            const financesDoc = doc(db, `${userEmail}-fin`, userData[0]?.id);
+
+            userData[0].cashIn[indexEdit] = {
+                amount: data.cashIn?.amount,
+                description: data.cashIn?.description,
+            }
+
+            await updateDoc(financesDoc, {
+                cashIn: [...userData[0].cashIn],
+            });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            getUserFinances();
+        }
+    }
+
+    const deleteCashIn = async (indexEdit: number) => {
+
+        try {
+            setIsLoading(true);
+
+            const financesDoc = doc(db, `${userEmail}-fin`, userData[0]?.id);
+            const newCashIn = userData[0].cashIn.filter((e: CashProps, i: string | number) => i !== indexEdit);
+
+            await updateDoc(financesDoc, {
+                cashIn: [...newCashIn],
+            });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            getUserFinances();
         }
     }
 
@@ -130,25 +170,59 @@ export const useFinances = () => {
         }
     }
 
-    // const deleteAll = async (email: string | null | undefined) => {
-    //   try {
-    //     const financesDoc = doc(db, `${email}-fin`, userData[0]?.id);
-    //     await deleteDoc(financesDoc);
-    //   } catch (err) {
-    //     console.error(err);
-    //   } finally {
-    //   }
-    // };
+    const updateCashOut = async (data: InputUserFinancesProps, indexEdit: number) => {
+
+        try {
+            setIsLoading(true);
+
+            const financesDoc = doc(db, `${userEmail}-fin`, userData[0]?.id);
+
+            userData[0].cashOut[indexEdit] = {
+                amount: data.cashOut?.amount,
+                description: data.cashOut?.description,
+            }
+
+            await updateDoc(financesDoc, {
+                cashOut: [...userData[0].cashOut],
+            });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            getUserFinances();
+        }
+    }
+
+    const deleteCashOut = async (indexEdit: number) => {
+
+        try {
+            setIsLoading(true);
+
+            const financesDoc = doc(db, `${userEmail}-fin`, userData[0]?.id);
+            const newCashOut = userData[0].cashOut.filter((e: CashProps, i: string | number) => i !== indexEdit);
+
+            await updateDoc(financesDoc, {
+                cashOut: [...newCashOut],
+            });
+        } catch (err) {
+            console.error(err);
+        } finally {
+            getUserFinances();
+        }
+    }
 
     return {
         isLoading,
+        session,
         userData,
         sumCashIn,
         sumCashOut,
         getUserFinances,
         setUserFinances,
         setCashIn,
+        updateCashIn,
+        deleteCashIn,
         setCashOut,
-        session,
+        updateCashOut,
+        deleteCashOut,
     };
 }

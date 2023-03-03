@@ -21,12 +21,12 @@ export type CashProps = {
 
 export type CashInProps = {
     values: CashProps[];
-    addCash?: () => {};
+    addCash?: () => void;
 }
 
 export type CashOutProps = {
     values: CashProps[];
-    subCash?: () => {};
+    subCash?: () => void;
 }
 
 export type OverviewProps = {
@@ -34,3 +34,17 @@ export type OverviewProps = {
     economies: string;
     expenses: string;
 }
+
+export type InputUserFinancesProps = {
+  montlyEco?: string,
+  economyEco?: string,
+  goalEco?: string,
+  cashIn?: {
+    amount?: string,
+    description?: string,
+  },
+  cashOut?: {
+    amount?: string,
+    description?: string,
+  },
+};

@@ -1,7 +1,7 @@
 import { OverviewProps } from '@/utils';
 import { Eye, Calendar } from 'lucide-react';
 
-export const Overview = ({ date, economies, expenses }: OverviewProps) => {
+export const Overview = ({ date, economies = '0', expenses = '0' }: OverviewProps) => {
     return (
         <div className='w-full xl:max-w-md lg:max-w-[280px] mx-w-xl pb-6'>
             <div className="flex justify-start items-center gap-4 pb-6">
@@ -15,7 +15,7 @@ export const Overview = ({ date, economies, expenses }: OverviewProps) => {
                     <h4 className='font-bold text-lg'> Dados de Fevereiro </h4>
 
                     <button className="flex justify-center items-center gap-4 bg-[#F1F5F8] px-6 py-2">
-                        <h4 className="font-bold text-md text-[#666]">24 / 02 / 2023</h4>
+                        <h4 className="font-bold text-md text-[#666]">{date}</h4>
                         <Calendar color="#666" size={16} />
                     </button>
 
@@ -24,7 +24,7 @@ export const Overview = ({ date, economies, expenses }: OverviewProps) => {
 
                         <div>
                             <p>Economia Total</p>
-                            <p className='font-bold xl:text-2xl text-lg'>R$ 0</p>
+                            <p className='font-bold xl:text-2xl text-lg'>R$ {economies}</p>
                         </div>
                     </div>
 
@@ -33,7 +33,7 @@ export const Overview = ({ date, economies, expenses }: OverviewProps) => {
 
                         <div>
                             <p>Gasto Total</p>
-                            <p className='font-bold xl:text-2xl text-lg'>R$ 0</p>
+                            <p className='font-bold xl:text-2xl text-lg'>R$ {expenses}</p>
                         </div>
                     </div>
 

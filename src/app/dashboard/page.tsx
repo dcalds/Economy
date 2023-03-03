@@ -17,11 +17,9 @@ import { useFinances } from '@/hooks/useFinances';
 
 export default function Home() {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<InputUserFinancesProps>();
-  const { isLoading, userData, sumCashIn, sumCashOut, setUserFinances, setCashIn, setCashOut, session, } = useFinances();
+  const { isLoading, userData, sumCashIn, sumCashOut, setUserFinances, session, } = useFinances();
 
   const [open, setOpen] = useState<boolean>(false);
-  const [openAddCash, setOpenAddCash] = useState<boolean>(false);
-  const [openSubCash, setOpenSubCash] = useState<boolean>(false);
 
   // MODAL HANDLERS
   const onOpenModal = () => {
@@ -33,36 +31,12 @@ export default function Home() {
 
   const onCloseModal = () => {
     setOpen(false);
-    setOpenAddCash(false);
-    setOpenSubCash(false);
-  };
-
-  const onOpenAddCashModal = () => {
-    setOpenAddCash(true);
-    setValue('cashIn.amount', '');
-    setValue('cashIn.description', '');
-  };
-
-  const onOpenSubCashModal = () => {
-    setOpenSubCash(true);
-    setValue('cashOut.amount', '');
-    setValue('cashOut.description', '');
   };
 
   // FORM SUBMITTERS
   const onSubmitUserFinances: SubmitHandler<InputUserFinancesProps> = async data => {
     onCloseModal();
     setUserFinances(data);
-  };
-
-  const onSubmitCashIn: SubmitHandler<InputUserFinancesProps> = async data => {
-    onCloseModal();
-    setCashIn(data);
-  };
-
-  const onSubmitCashOut: SubmitHandler<InputUserFinancesProps> = async data => {
-    onCloseModal();
-    setCashOut(data);
   };
 
   const logout = async () => {
@@ -122,88 +96,6 @@ export default function Home() {
         </Modal>
       )}
 
-      {openAddCash && (
-        <Modal open={openAddCash} onClose={onCloseModal} center>
-          <form
-            onSubmit={handleSubmit(onSubmitCashIn)}
-            className='container mx-auto pt-6 max-w-md w-full flex flex-col justify-center items-start gap-4'>
-
-            <h1 className='text-xl font-bold'>Adicionar Entrada</h1>
-            <label className='text-sm mb-4'>Informe o valor e uma descricao</label>
-
-            <div className='w-full'>
-              <label htmlFor="cashIn.amount">Qual o valor da entrada?</label>
-              <input
-                className="border border-slate-300 py-3 px-4 w-full my-2"
-                placeholder="Digite um valor numerico"
-                type="number"
-                {...register("cashIn.amount", { required: true })}
-              />
-            </div>
-
-            <div className='w-full'>
-              <label htmlFor="cashIn.description">Qual a descricao da entrada?</label>
-              <input
-                className="border border-slate-300 py-3 px-4 w-full my-2"
-                placeholder="Digite uma descricao"
-                type="text"
-                {...register("cashIn.description", { required: true })}
-              />
-            </div>
-
-            <div className="w-full max-w-sm flex justify-between items-center pb-6">
-              <button
-                type='submit'
-                className="font-semibold bg-green-500 hover:bg-green-700 transition-all py-3 px-6 mt-4 w-full flex justify-center items-center gap-2">
-                <span>Continuar</span>
-              </button>
-            </div>
-
-          </form>
-        </Modal>
-      )}
-
-      {openSubCash && (
-        <Modal open={openSubCash} onClose={onCloseModal} center>
-          <form
-            onSubmit={handleSubmit(onSubmitCashOut)}
-            className='container mx-auto pt-6 max-w-md w-full flex flex-col justify-center items-start gap-4'>
-
-            <h1 className='text-xl font-bold'>Adicionar Saida</h1>
-            <label className='text-sm mb-4'>Informe o valor e uma descricao</label>
-
-            <div className='w-full'>
-              <label htmlFor="cashOut.amount">Qual o valor da saida?</label>
-              <input
-                className="border border-slate-300 py-3 px-4 w-full my-2"
-                placeholder="Digite um valor numerico"
-                type="number"
-                {...register("cashOut.amount", { required: true })}
-              />
-            </div>
-
-            <div className='w-full'>
-              <label htmlFor="cashOut.description">Qual a descricao da saida?</label>
-              <input
-                className="border border-slate-300 py-3 px-4 w-full my-2"
-                placeholder="Digite uma descricao"
-                type="text"
-                {...register("cashOut.description", { required: true })}
-              />
-            </div>
-
-            <div className="w-full max-w-sm flex justify-between items-center pb-6">
-              <button
-                type='submit'
-                className="font-semibold text-white bg-red-500 hover:bg-red-700 transition-all py-3 px-6 mt-4 w-full flex justify-center items-center gap-2">
-                <span>Continuar</span>
-              </button>
-            </div>
-
-          </form>
-        </Modal>
-      )}
-
       <div className='container mx-auto py-12'>
 
         <div className="w-full sm:flex-wrap flex justify-between items-center pb-6">
@@ -227,8 +119,8 @@ export default function Home() {
 
         <div className="w-full flex flex-wrap  justify-between items-start">
           <Overview date={moment().format('L')} economies={isLoading ? 0 : sumCashIn} expenses={isLoading ? 0 : sumCashOut} />
-          <CashIn values={isLoading ? [] : userData[0]?.cashIn} addCash={onOpenAddCashModal} />
-          <CashOut values={isLoading ? [] : userData[0]?.cashOut} subCash={onOpenSubCashModal} />
+          <CashIn values={isLoading ? [] : userData[0]?.cashIn} />
+          <CashOut values={isLoading ? [] : userData[0]?.cashOut} />
         </div>
 
       </div>

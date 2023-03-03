@@ -21,12 +21,10 @@ export type CashProps = {
 
 export type CashInProps = {
     values: CashProps[];
-    addCash?: () => void;
 }
 
 export type CashOutProps = {
     values: CashProps[];
-    subCash?: () => void;
 }
 
 export type OverviewProps = {

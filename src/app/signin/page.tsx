@@ -8,8 +8,6 @@ import { signIn } from 'next-auth/react';
 
 import { LogIn } from 'lucide-react';
 
-import { useState } from "react";
-
 export default function SignIn() {
   const router = useRouter();
 

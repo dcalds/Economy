@@ -1,1 +1,1 @@
-export * from './useFinances'
+export * from './useFinances';

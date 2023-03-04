@@ -26,7 +26,7 @@ export default function SignIn() {
     <section className="container mx-auto">
       <div className="flex flex-col justify-center items-center pt-20">
 
-        <div className="bg-white w-full flex flex-col max-w-sm px-6 gap-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
+        <div className="bg-white w-full flex flex-col max-w-sm px-6 pb-6 gap-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.05)]">
 
           <div className='h-1 w-full bg-[#5A75FF]'></div>
 
@@ -49,7 +49,7 @@ export default function SignIn() {
             <span>Entrar com Google</span>
           </button>
 
-          <div className='flex justify-between items-center pb-4'>
+          {/* <div className='flex justify-between items-center pb-4'>
             <div className='h-px w-full max-w-[120px] bg-[#E1E3E4]'></div>
             <span className=''>ou</span>
             <div className='h-px w-full max-w-[120px] bg-[#E1E3E4]'></div>
@@ -86,7 +86,7 @@ export default function SignIn() {
             <Link href="/signon" className='text-[#5A75FF] hover:text-[#415CE9] underline-offset-2 underline'>
               Criar nova conta aqui
             </Link>
-          </div>
+          </div> */}
         </div>
 
       </div>

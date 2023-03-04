@@ -1,4 +1,5 @@
 import { OverviewProps } from '@/utils';
+import { numberWithCommas } from '@/utils/functions';
 import { Eye, Calendar } from 'lucide-react';
 
 export const Overview = ({ date, economies = '0', expenses = '0' }: OverviewProps) => {
@@ -23,7 +24,7 @@ export const Overview = ({ date, economies = '0', expenses = '0' }: OverviewProp
 
                         <div>
                             <p>Entradas</p>
-                            <p className='font-bold xl:text-2xl text-lg'>R$ {economies}</p>
+                            <p className='font-bold xl:text-2xl text-lg'>R$ {numberWithCommas(economies)}</p>
                         </div>
                     </div>
 
@@ -32,7 +33,7 @@ export const Overview = ({ date, economies = '0', expenses = '0' }: OverviewProp
 
                         <div>
                             <p>Saidas</p>
-                            <p className='font-bold xl:text-2xl text-lg'>R$ {expenses}</p>
+                            <p className='font-bold xl:text-2xl text-lg'>R$ {numberWithCommas(expenses)}</p>
                         </div>
                     </div>
 
@@ -41,7 +42,7 @@ export const Overview = ({ date, economies = '0', expenses = '0' }: OverviewProp
 
                         <div>
                             <p>Restante</p>
-                            <p className='font-bold xl:text-2xl text-lg'>R$ {Number(economies) - Number(expenses)}</p>
+                            <p className='font-bold xl:text-2xl text-lg'>R$ {numberWithCommas(((Number(economies)) - (Number(expenses))).toString())}</p>
                         </div>
                     </div>
 

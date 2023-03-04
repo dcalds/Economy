@@ -2,9 +2,10 @@ import { useState } from 'react';
 import Modal from 'react-responsive-modal';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { ArrowDownCircle, PlusCircle } from 'lucide-react';
+import { ArrowDown, PlusCircle } from 'lucide-react';
 
 import { CashOutProps, CashProps, InputUserFinancesProps } from '@/utils';
+import { numberWithCommas } from '@/utils/functions';
 
 export const CashOut = ({ values, setCashOut, updateCashOut, deleteCashOut }: CashOutProps) => {
 
@@ -56,9 +57,16 @@ export const CashOut = ({ values, setCashOut, updateCashOut, deleteCashOut }: Ca
 
     return (
         <div className="w-full xl:max-w-md lg:max-w-[280px] mx-w-xl flex flex-col gap-6 pb-6">
-            <div className="flex justify-start items-center gap-4">
-                <ArrowDownCircle color="#333" size={16} />
-                <h4 className="font-bold text-lg">Gastos</h4>
+            <div className="flex justify-between items-center">
+                <div className="flex justify-start items-center gap-4">
+                    <ArrowDown color="red" size={16} />
+                    <h4 className="font-bold text-lg">Gastos</h4>
+                </div>
+
+                <button onClick={() => addNewCashOutValue()} className="flex justify-start items-center gap-2 hover:text-red-600">
+                    <h4 className="font-normal text-sm transition-all">Novo</h4>
+                    <PlusCircle color="red" size={16} />
+                </button>
             </div>
 
             {openCashOut && (
@@ -172,16 +180,11 @@ export const CashOut = ({ values, setCashOut, updateCashOut, deleteCashOut }: Ca
                 return (
                     <div key={index} onClick={() => editCashOutValue(element, index)} className='flex items-center gap-4 bg-white cursor-pointer transition-all hover:drop-shadow-md'>
                         <div className='h-16 max-h- w-1 bg-[#FF4747]' />
-                        <p className='font-bold text-lg'>R$ {element.amount}</p>
+                        <p className='font-bold text-lg'>R$ {numberWithCommas(element.amount)}</p>
                         <p>{element.description}</p>
                     </div>
                 )
             })}
-
-            <button onClick={() => addNewCashOutValue()} className="flex justify-start items-center gap-4">
-                <PlusCircle color="#333" size={16} />
-                <h4 className="font-normal">Adicionar</h4>
-            </button>
         </div>
     )
 }

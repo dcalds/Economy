@@ -5,10 +5,11 @@ import moment from 'moment';
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Modal } from 'react-responsive-modal';
+import Image from 'next/image'
 
 import { signOut } from 'next-auth/react';
 
-import { Banknote, Calendar } from 'lucide-react';
+import { ArrowBigRight, ArrowRight, Banknote, Calendar } from 'lucide-react';
 
 import { Navbar, Card, CashIn, CashOut, Overview } from "@/components";
 import { InputUserFinancesProps } from '@/utils';
@@ -66,7 +67,7 @@ export default function Home() {
 
   return (
     <section className="">
-      <Navbar data={session?.user} logOut={logout} openSettings={onOpenModal} />
+      <Navbar data={session?.user} logOut={logout} openSettings={onOpenModal} hasData={userData[0]?.montlyEco} isLoading={isLoading}/>
 
       {open && (
         <Modal open={open} onClose={onCloseModal} center>
@@ -119,24 +120,51 @@ export default function Home() {
 
       <div className='container mx-auto py-12'>
 
-        <div className="w-full sm:flex-wrap flex justify-between items-center pb-6">
-          <div className="flex justify-center items-center gap-4">
-            <Banknote color="#333" size={16} />
-            <h4 className="font-bold text-lg">Gerenciamento de Economias</h4>
+        {!userData[0]?.montlyEco && !isLoading && (
+          <div className="w-full sm:flex-wrap flex flex-col justify-center items-center pb-6">
+            <Image
+              src="/congrats.png"
+              alt="User"
+              width={65}
+              height={65}
+              priority
+              className='drop-shadow-xl'
+            />
+            <h1 className='font-bold text-xl my-4 text-green-600'>Boas Vindas!</h1>
+            <p className='font-normal text-md max-w-xs text-center mb-2'>
+              Aqui vamos dar inicio ao gerenciamento da sua vida financeira.
+            </p>
+            <button
+              onClick={onOpenModal}
+              className="font-semibold max-w-xs bg-green-600 hover:bg-green-500 transition-all py-3 px-6 mt-4 w-full flex justify-center items-center gap-2">
+              <h4 className="font-semibold text-md text-white"> Vamos Comecar</h4>
+              <ArrowRight color="white" size={16} />
+            </button>
           </div>
+        )}
 
-          <button className="justify-center items-center gap-4 md:flex hidden">
-            <h4 className="font-bold text-md">{moment().format('L')}</h4>
-            <Calendar color="#333" size={16} />
-          </button>
-        </div>
+        {userData[0]?.montlyEco && (
+          <div className="w-full sm:flex-wrap flex justify-between items-center pb-6">
+            <div className="flex justify-center items-center gap-4">
+              <Banknote color="#333" size={16} />
+              <h4 className="font-bold text-lg">Minhas Economias</h4>
+            </div>
 
-        <div className="w-full flex flex-wrap justify-between items-start pb-12 gap-8">
-          <Card label={'Economia Mensal'} value={isLoading ? '-' : (`R$ ${numberWithCommas(userData[0]?.montlyEco) || '0'}`)} color={'bg-[#FFE247]'} />
-          <Card label={'Economizado'} value={isLoading ? '-' : (`R$ ${numberWithCommas(userData[0]?.economyEco) || '0'}`)} color={'bg-[#5DE950]'} />
-          <Card label={'Meta'} value={isLoading ? '-' : (`R$ ${numberWithCommas(userData[0]?.goalEco) || '0'}`)} color={'bg-[#5A75FF]'} />
-          <Card label={'Alcance da Meta'} value={isLoading ? '-' : calcPercentage(userData[0]?.economyEco, userData[0]?.goalEco) + '%'} color={'bg-[#BC67FF]'} />
-        </div>
+            <button className="justify-center items-center gap-4 md:flex hidden">
+              <h4 className="font-bold text-md">{moment().format('L')}</h4>
+              <Calendar color="#333" size={16} />
+            </button>
+          </div>
+        )}
+
+        {userData[0]?.montlyEco && (
+          <div className="w-full flex flex-wrap justify-between items-start pb-12 gap-8">
+            <Card label={'Economia Mensal'} value={isLoading ? '-' : (`R$ ${numberWithCommas(userData[0]?.montlyEco) || '0'}`)} color={'bg-[#FFE247]'} />
+            <Card label={'Economizado'} value={isLoading ? '-' : (`R$ ${numberWithCommas(userData[0]?.economyEco) || '0'}`)} color={'bg-[#5DE950]'} />
+            <Card label={'Meta'} value={isLoading ? '-' : (`R$ ${numberWithCommas(userData[0]?.goalEco) || '0'}`)} color={'bg-[#5A75FF]'} />
+            <Card label={'Alcance da Meta'} value={isLoading ? '-' : calcPercentage(userData[0]?.economyEco, userData[0]?.goalEco) + '%'} color={'bg-[#BC67FF]'} />
+          </div>
+        )}
 
         {userData[0]?.montlyEco && (
           <div className="w-full flex flex-wrap  justify-between items-start">

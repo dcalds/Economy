@@ -4,6 +4,8 @@ export type NavbarProps = {
         email?: string | null | undefined;
         image?: string | null | undefined;
     };
+    isLoading: boolean;
+    hasData: string | null | undefined,
     openSettings?: () => void;
     logOut: () => void;
 }
